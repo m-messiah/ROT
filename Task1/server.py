@@ -21,7 +21,7 @@ while True:
                 break
         if data and data != "quit\n":
             try:
-                conn.sendall("%s\n" % eval(data.strip()))
+                conn.sendall("{0}\n".format(eval(data.strip())))
             except:
                 conn.sendall("Invalid input\n")
         else:

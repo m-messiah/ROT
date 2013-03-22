@@ -13,7 +13,7 @@ class Client(object):
         self.sock = socket.create_connection((self.host, self.port))
 
     def send_request(self, req):
-        return self.sock.send("%s\n" % req)
+        return self.sock.send("{0}\n".format(req))
 
     def get_reply(self):
         recv = self.sock.recv(512)
@@ -21,7 +21,7 @@ class Client(object):
 
 
 def print_help(argv):
-    usage = "Usage: %s host port" % argv[0]
+    usage = "Usage: {0} host port".format(argv[0])
     print usage
 
 
@@ -37,7 +37,7 @@ def main():
         client.send_request(req)
         if req == "quit":
             break
-        print "Server> %s" % client.get_reply().strip()
+        print "Server> {0}".format(client.get_reply().strip())
 
 
 if __name__ == "__main__":
