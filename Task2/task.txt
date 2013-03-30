@@ -1,5 +1,0 @@
-Класс Solver
-    def solve(a,b,c):
-        return x1,x2
-
-

@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import math
+from SimpleXMLRPCServer import SimpleXMLRPCServer
 
 __author__ = 'Messiah'
-
-import xmlrpclib
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+HOST = "localhost"
+PORT = 8080
 
 
 class Solver():
@@ -33,7 +33,6 @@ class Solver():
 
 
 if __name__ == "__main__":
-    HOST, PORT = ("localhost", 8080)
     server = SimpleXMLRPCServer((HOST, PORT))
     print "Listening on", PORT
     S = Solver()

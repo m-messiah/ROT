@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 __author__ = 'Messiah'
+HOST = "localhost"
+PORT = 8080
 
 import xmlrpclib
 
-proxy = xmlrpclib.ServerProxy("http://localhost:8080")
+proxy = xmlrpclib.ServerProxy("http://{}:{}".format(HOST, PORT))
 while True:
     print "===================\nQuadratic solver"
     try:
@@ -14,7 +16,7 @@ while True:
                    float(raw_input("Enter C: ")))
         if a == b == c == 0:
             break
-        print "Roots for {0}x^2 + ({1})x + ({2})".format(a, b, c)
+        print "Roots for {}x^2 + ({})x + ({})".format(a, b, c)
     except ValueError:
         print "Incorrect input"
         continue
@@ -28,4 +30,4 @@ while True:
     except Exception as e:
         print "Something wrong with server: ", e
     else:
-        print "are x1 = {0}, x2 = {1}".format(x1, x2)
+        print "are x1 = {}, x2 = {}".format(x1, x2)

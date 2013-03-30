@@ -10,7 +10,7 @@ case "$1" in
          -input books/* -output books-output
         ;;
     show)
-        sudo -u ${HADOOP_USER} ${HADOOP_HOME}/bin/hadoop fs -cat books-output/part-00000 | less
+        sudo -u ${HADOOP_USER} ${HADOOP_HOME}/bin/hadoop fs -cat books-output/part-00000
         ;;
     delete)
         sudo -u ${HADOOP_USER} ${HADOOP_HOME}/bin/hadoop fs -rmr books-output
