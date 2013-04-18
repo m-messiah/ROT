@@ -1,20 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+__author__ = 'Messiah'
+# based on stomper example for stomping"
 import os
 import sys
-import time
-
-__author__ = 'Messiah'
+from time import strftime
 import uuid
 import logging
-
-from twisted.internet import reactor
+from twisted.internet import reactor, stdio
 from twisted.internet.task import LoopingCall
 from twisted.internet.protocol import Protocol, ReconnectingClientFactory
+from twisted.protocols import basic
 
 import stomper
-from twisted.internet import stdio
-from twisted.protocols import basic
+
 
 stomper.utils.log_init(logging.CRITICAL)
 
@@ -68,7 +67,7 @@ class StompProtocol(Protocol, stomper.Engine):
         global message
         if not message:
             return
-        self.log.debug("MSG:({}) {}: {}".format(time.strftime("%H:%M:%S"),
+        self.log.debug("MSG:({}) {}: {}".format(strftime("%H:%M:%S"),
                                                 self.nickname,
                                                 message))
 
@@ -97,7 +96,7 @@ class StompProtocol(Protocol, stomper.Engine):
         else:
             f = stomper.Frame()
             f.unpack(stomper.send(DESTINATION,
-                                  "({}) {}: {}".format(time.strftime("%H:%M:%S"),
+                                  "({}) {}: {}".format(strftime("%H:%M:%S"),
                                                        self.nickname,
                                                        message)))
             self.transport.write(f.pack())
@@ -146,7 +145,9 @@ class StompClientFactory(ReconnectingClientFactory):
         """Connection failed
         """
         print 'Connection failed. Reason:', reason
-        ReconnectingClientFactory.clientConnectionFailed(self, connector, reason)
+        ReconnectingClientFactory.clientConnectionFailed(self,
+                                                         connector,
+                                                         reason)
 
 
 def start(host=HOST, port=PORT, username='', password='', nickname=""):

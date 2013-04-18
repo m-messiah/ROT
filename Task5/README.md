@@ -28,4 +28,6 @@
 + /ME &lt;status&gt; - сообщение вроде статуса.
 + /QUIT    - выход.
 
+P.S. Примтивный Stomp server:
 
+    coilmq -b 0.0.0.0 -p 61613
