@@ -7,8 +7,8 @@
 1. Необходим запущенный JMS с поддержкой STOMP.
 2. Необходимы библиотеки stomper и twisted для python
 
-    pip install stomper
-    pip install twisted
+    pip install stomper && pip install twisted
+    
 
 Запуск:
 -------
