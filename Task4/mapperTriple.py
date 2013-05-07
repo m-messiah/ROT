@@ -9,7 +9,9 @@ def read_input(file):
         # split the line into triplets
         unpunct_line = re.sub(r'\W', ' ', line.lower())
         words = unpunct_line.split()
-        yield ["{} {} {}".format(words[i - 2], words[i - 1], words[i]) for i in range(2, len(words))]
+        yield ["{} {} {}".format(words[i - 2],
+                                 words[i - 1],
+                                 words[i]) for i in range(2, len(words))]
 
 
 def main(separator='\t'):
