@@ -4,7 +4,7 @@ Thrift Client-Server
 thrift
 ------
 
-    thrift --gen {py,cpp} helloworld.thrift
+    Описывает две функции: ping и подсчёт количества тэгов.    
 
 server
 ------
@@ -20,4 +20,16 @@ client
 Скачивает страницу, отправляет текст серверу, возвращает количество искомых тегов.
 
 
-    g++ -Wall -I/usr/local/include/thrift -c client.cpp -o client
+Компиляция и зависимости
+========================
+
+Требует установленного thrift, libcurl, g++
+
+Для С++ thrift успешно собирается по инструкции с сайта.
+Python у меня его не увидел (возможно недособрал) - решается установкой python-thrift:
+
+    pip install thrift
+
+Сборка происходит с помощью утилиты make.
+
+На выходе будет доступно два исполняемых файла: server.py и client.elf
