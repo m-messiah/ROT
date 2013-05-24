@@ -8,7 +8,7 @@ sys.path.append('./gen-py')
 
 from Parser import Parser
 from Parser.ttypes import *
-from re import findall, MULTILINE, DOTALL
+from re import findall, MULTILINE, DOTALL, IGNORECASE
 from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
@@ -24,9 +24,9 @@ class ParserHandler:
 
     def count(self, page, tag):
         c = len(findall("<{0}.*?>.*?</{0}>".format(tag),
-                        page, MULTILINE | DOTALL))
+                        page, MULTILINE | DOTALL | IGNORECASE))
         c += len(findall("<{0}[^<>]*?/>".format(tag),
-                         page, MULTILINE | DOTALL))
+                         page, MULTILINE | DOTALL | IGNORECASE))
         return c
 
 

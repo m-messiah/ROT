@@ -1,9 +1,9 @@
 #include "./gen-cpp/Parser.h"
 #include <iostream>
 #include <curl/curl.h>
-#include <transport/TSocket.h>
-#include <transport/TBufferTransports.h>
-#include <protocol/TBinaryProtocol.h>
+#include <thrift/transport/TSocket.h>
+#include <thrift/transport/TBufferTransports.h>
+#include <thrift/protocol/TBinaryProtocol.h>
 
 using namespace apache::thrift;
 using namespace apache::thrift::protocol;
@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
     string buffer;
     CURL * curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, somecallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_perform(curl);
