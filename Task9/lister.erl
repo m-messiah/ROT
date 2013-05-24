@@ -2,16 +2,21 @@
 
 serve() ->
     receive 
-        File ->
-            io:fwrite("<~s>~n", [File]),
-            serve();
         ls ->
-            io:fwrite(">ls~n", []),
-            serve()
-    end.
+            case file:list_dir(".") of
+                {ok, Filenames} ->
+                    lists:foreach(fun(Name) -> io:format("... ~s~n", [Name]) end, Filenames);
+                {error, enoent} ->
+                    io:format("The directory(~s) does not exist.~n", ["."]),
+                    ng
+            end;
+        {cat, File} ->
+            io:fwrite("<~s>~n", [File])
+    end,
+    serve().
 
 client() ->
-    server ! "hello",
+    server ! {cat, "hello"},
     timer:sleep(1000),
     client().
 
