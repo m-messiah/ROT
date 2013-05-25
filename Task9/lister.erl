@@ -5,23 +5,31 @@ serve() ->
         ls ->
             case file:list_dir(".") of
                 {ok, Filenames} ->
-                    lists:foreach(fun(Name) -> io:format("... ~s~n", [Name]) end, Filenames);
+                    client ! {list, Filenames};
                 {error, enoent} ->
                     io:format("The directory(~s) does not exist.~n", ["."]),
                     ng
             end;
         {cat, File} ->
-            io:fwrite("<~s>~n", [File])
+            {_, Content} = file:read_file(File),
+            client ! {file, File, Content}
     end,
     serve().
 
-client() ->
-    server ! {cat, "hello"},
+getfile() ->
+    receive
+        {list, Filenames} ->
+            %lists:foreach(fun(Name) -> io:format("... ~s~n", [Name]) end, Filenames);
+            delivery ! {cat, lists:nth(random:uniform(length(Filenames)), Filenames)};
+        {file, File, Content} ->
+            io:fwrite("~s: ~w bytes~n", [File, byte_size(Content)]),
+            delivery ! ls
+    end,
     timer:sleep(1000),
-    client().
+    getfile().
 
 main(_) ->
-    register(server, spawn(fun() -> serve() end)),
-    server ! ls,
-    spawn(fun() -> client() end),
+    register(delivery, spawn(fun() -> serve() end)),
+    register(client, spawn(fun() -> getfile() end)),
+    delivery ! ls,
     timer:sleep(50000).
