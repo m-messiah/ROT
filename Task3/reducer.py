@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from itertools import groupby
 from operator import itemgetter
@@ -15,7 +15,7 @@ def main(separator='\t'):
     for current_triplet, group in groupby(data, itemgetter(0)):
         try:
             total_count = sum(int(count) for current_triplet, count in group)
-            print "{}{}{}".format(current_triplet, separator, total_count)
+            print("{}{}{}".format(current_triplet, separator, total_count))
         except ValueError:
             # count was not a number, so silently discard this item
             pass

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import socket
 
@@ -9,21 +9,22 @@ s.bind((HOST, PORT))
 s.listen(5)
 while True:
     conn, addr = s.accept()
-    print 'Connected by', addr
+    print('Connected by', addr)
     while True:
         data = ""
         c = ''
         while c != '\n':
-            c = conn.recv(1)
+            c = conn.recv(1).decode()
             if c:
                 data += c
             else:
                 break
         if data and data != "quit\n":
             try:
-                conn.sendall("{0}\n".format(eval(data.strip())))
-            except:
-                conn.sendall("Invalid input\n")
+                message = "{}\n".format(eval(data.strip()))
+            except Exception as e:
+                message = "Invalid input\n"
+            conn.sendall(message.encode())
         else:
             break
     conn.close()

@@ -1,14 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import math
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from xmlrpc.server import SimpleXMLRPCServer
 
 __author__ = 'Messiah'
 HOST = "localhost"
 PORT = 8080
 
 
-class Solver():
+class Solver(object):
     def __init__(self):
         pass
 
@@ -34,7 +34,7 @@ class Solver():
 
 if __name__ == "__main__":
     server = SimpleXMLRPCServer((HOST, PORT))
-    print "Listening on", PORT
+    print("Listening on", PORT)
     S = Solver()
     server.register_function(S.solve, "solve")
     server.serve_forever()

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 from IN import INT64_MAX, INT64_MIN
 
@@ -16,36 +16,36 @@ class Master():
         self.output.bind("tcp://127.0.0.1:{}".format(port1))
         self.input = self.context.socket(zmq.SUB)
         self.input.connect("tcp://127.0.0.1:{}".format(port2))
-        self.input.setsockopt(zmq.SUBSCRIBE, "")
+        self.input.setsockopt(zmq.SUBSCRIBE, b"")
 
     def run(self):
-        self.output.send("hello")
+        self.output.send(b"hello")
         for i in range(REPEATS):
             #msg = "{}**{}".format(random.randint(0, INT64_MAX),
             #                     random.randint(10000, 20000))
             msg = "{}+{}".format(random.randint(INT64_MIN, INT64_MAX),
                                  random.randint(INT64_MIN, INT64_MAX))
-            self.output.send(msg)
-            print msg
+            self.output.send(msg.encode())
+            print(msg)
             for i in range(100000):
                 try:
-                    msg = self.input.recv(zmq.NOBLOCK)
+                    msg = self.input.recv(zmq.NOBLOCK).decode()
                 except zmq.core.error.ZMQError:
                     pass
                 else:
-                    print msg
+                    print(msg)
 
-        self.output.send("exit")
-        print "exit"
+        self.output.send(b"exit")
+        print("exit")
         while True:
             try:
-                msg = self.input.recv(zmq.NOBLOCK)
+                msg = self.input.recv(zmq.NOBLOCK).decode()
             except zmq.core.error.ZMQError:
                 pass
             else:
                 if msg == "exit":
                     return
-                print msg
+                print(msg)
 
 
 if __name__ == "__main__":

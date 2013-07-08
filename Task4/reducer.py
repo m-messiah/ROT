@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from itertools import groupby
 from operator import itemgetter
@@ -16,7 +16,7 @@ def main(separator='\t'):
     for current_unit, group in groupby(data, itemgetter(0)):
         try:
             total_count = sum(int(count) for current_unit, count in group)
-            print "{}{}{}".format(current_unit, separator, total_count)
+            print("{}{}{}".format(current_unit, separator, total_count))
         except ValueError:
             # count was not a number, so silently discard this item
             pass

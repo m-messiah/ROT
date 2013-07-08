@@ -5,7 +5,8 @@
 -----------
 
 1. Необходим запущенный JMS с поддержкой STOMP.
-2. Необходимы библиотеки stomper и twisted для python
+2. Необходим python2.7 (из-за библиотеки stomper)
+3. Необходимы библиотеки stomper и twisted для python
 
     pip install stomper && pip install twisted
     
@@ -13,7 +14,7 @@
 Запуск:
 -------
 
-    python chat.py <Nickname> [MEM]
+    python2 chat.py <Nickname> [MEM]
 
 Где MEM - желаемое количество отображаемых строк.
 

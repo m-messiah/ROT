@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import re
@@ -19,7 +19,7 @@ def main(separator='\t'):
     data = read_input(sys.stdin)
     for triplets in data:
         for triplet in triplets:
-            print '{}{}{}'.format(triplet, separator, 1)
+            print('{}{}{}'.format(triplet, separator, 1))
 
 
 if __name__ == "__main__":

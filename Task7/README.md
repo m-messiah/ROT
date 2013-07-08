@@ -8,7 +8,7 @@ master.py
 
 Запуск:
   
-  python master.py [a [b]]
+  python2 master.py [a [b]]
 
 Если какие-то аргументы не указаны - генерируется случайное число от MinINT64 до MaxINT64.
 
